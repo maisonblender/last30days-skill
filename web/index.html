@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#8b5cf6">
+  <meta name="description" content="Research what people are saying about any topic in the last 30 days across Reddit, X, and the web.">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Last30Days">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="icon" type="image/svg+xml" href="/icons/icon-192.svg">
+  <link rel="apple-touch-icon" href="/icons/icon-192.svg">
+  <title>Last 30 Days</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div id="app">
+    <!-- Header -->
+    <header class="header">
+      <div class="header-brand">
+        <div class="logo">30</div>
+        <div class="header-text">
+          <h1>Last 30 Days</h1>
+          <p class="tagline">Onderzoek elk onderwerp. Echte discussies. Echte data.</p>
+        </div>
+      </div>
+      <button id="install-btn" class="btn btn-install" hidden>Installeren</button>
+    </header>
+
+    <!-- Search Section -->
+    <main class="main">
+      <form id="search-form" class="search-section">
+        <div class="search-box">
+          <input
+            type="text"
+            id="topic-input"
+            placeholder="Waar zijn mensen over aan het praten?"
+            autocomplete="off"
+            required
+          >
+          <button type="submit" id="search-btn" class="btn btn-primary">
+            <span class="btn-text">Zoeken</span>
+            <span class="btn-spinner" hidden>
+              <span class="spinner"></span>
+            </span>
+          </button>
+        </div>
+
+        <!-- Options -->
+        <div class="options">
+          <div class="option-group">
+            <label for="sources-select">Bronnen</label>
+            <select id="sources-select">
+              <option value="auto">Automatisch</option>
+              <option value="both">Reddit + X</option>
+              <option value="reddit">Alleen Reddit</option>
+              <option value="x">Alleen X</option>
+            </select>
+          </div>
+          <div class="option-group">
+            <label for="depth-select">Diepte</label>
+            <select id="depth-select">
+              <option value="default">Standaard</option>
+              <option value="quick">Snel</option>
+              <option value="deep">Diepgaand</option>
+            </select>
+          </div>
+          <div class="option-group">
+            <label for="days-input">Dagen</label>
+            <input type="number" id="days-input" value="30" min="1" max="30">
+          </div>
+        </div>
+      </form>
+
+      <!-- Status indicator -->
+      <div id="status-bar" class="status-bar" hidden>
+        <div class="status-sources" id="status-sources"></div>
+      </div>
+
+      <!-- Progress -->
+      <div id="progress" class="progress-section" hidden>
+        <div class="progress-bar">
+          <div class="progress-fill" id="progress-fill"></div>
+        </div>
+        <p class="progress-text" id="progress-text">Onderzoek starten...</p>
+      </div>
+
+      <!-- Error -->
+      <div id="error" class="error-section" hidden>
+        <div class="error-card">
+          <p class="error-title">Fout</p>
+          <p class="error-message" id="error-message"></p>
+          <button class="btn btn-secondary" onclick="dismissError()">Sluiten</button>
+        </div>
+      </div>
+
+      <!-- Results -->
+      <div id="results" class="results-section" hidden>
+        <div class="results-header">
+          <h2 id="results-topic"></h2>
+          <div class="results-meta" id="results-meta"></div>
+        </div>
+
+        <!-- Reddit Results -->
+        <div id="reddit-section" class="source-section" hidden>
+          <h3 class="source-title source-reddit">
+            <span class="source-dot reddit-dot"></span>
+            Reddit Threads
+            <span class="source-count" id="reddit-count"></span>
+          </h3>
+          <div id="reddit-results" class="items-list"></div>
+        </div>
+
+        <!-- X Results -->
+        <div id="x-section" class="source-section" hidden>
+          <h3 class="source-title source-x">
+            <span class="source-dot x-dot"></span>
+            X Posts
+            <span class="source-count" id="x-count"></span>
+          </h3>
+          <div id="x-results" class="items-list"></div>
+        </div>
+
+        <!-- Empty state -->
+        <div id="empty-state" class="empty-state" hidden>
+          <p>Geen resultaten gevonden voor dit onderwerp.</p>
+          <p class="empty-hint">Probeer een ander zoekwoord of vergroot het aantal dagen.</p>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p>Aangedreven door <strong>last30days</strong> &middot; Reddit &middot; X &middot; Web</p>
+    </footer>
+  </div>
+
+  <script src="/app.js"></script>
+</body>
+</html>
